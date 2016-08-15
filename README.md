@@ -1,6 +1,6 @@
 # NCBSinfo web
 
-     http://secretbiology.com/ncbsinfo/
+     https://secretbiology.com/ncbsinfo/
 
 This is web interface to manage NCBSinfo account. Visit <a href='http://secretbiology.com/ncbsinfo/'  >this</a> webpage to manage your NCBSinfo account. Currently supports changing Name, Password, Default Route, Notification Preferences. 
 
