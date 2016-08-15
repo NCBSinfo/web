@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>NCBSinfo</title>
+        <meta charset="UTF-8">
+         <link rel="shortcut icon"  href="../../favicon.ico" />
+       
+        <link rel="stylesheet" href="../../css/main.css">
+        <link  rel="stylesheet" type="text/css" href="../../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    </head>
+    <body>
+         <nav>
+            <div class="nav-wrapper teal darken-2 ">
+                <a href="../../ncbsinfo/" class="brand-logo center">NCBSinfo</a>
+            </div>
+        </nav>
+        <br>
+        <div class="row center">
+            <h5 class="col s12 light">Reset Password</h5>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6 offset-m3 ">
+                    <div id="inputCard" class="card card-panel hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div id="email" class="col s12 m8 offset-m2">
+                                    Email@domain.com
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m8 offset-m2">
+                                    <input id="password" type="password" class="validate">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field col s12 m8 offset-m2">
+                                    <input id="confirmpassword" type="password" class="validate">
+                                    <label for="password">Confirm Password</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m6 offset-m2">
+                                    <a id="submit" class="waves-effect waves-light btn-large">Reset</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    
+                     <div id="messageCard" class="card card-panel">
+                        <div class="card-content">
+                            <div class="row">
+                                <div id="message" class="col s12 m8 offset-m2 center-align">
+                                    Your message
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m6 offset-m4">
+                                    <a id="goback" class="waves-effect waves-light btn-large">Home</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+        </div>
+        
+         <script type="text/javascript" src="../../js/jQmin.js"></script>
+        <script type="text/javascript" src="../../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../../js/firebaseConfig.js"></script>
+        <script type="text/javascript" src="resetpass.js"></script>
+    </body>
+</html>
