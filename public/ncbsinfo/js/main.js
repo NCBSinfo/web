@@ -38,7 +38,7 @@ document.getElementById('submit').onclick = function toggleSignIn() {
         });
     }
 
-}
+};
 
 function initApp() {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -93,3 +93,25 @@ function isMobile() {
 function hideNav() {
     $('.button-collapse').sideNav('hide');
 }
+
+$("#register").click(function () {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    if (email.length < 4) {
+        Materialize.toast('Please enter an email address.', 4000, 'rounded');
+        return;
+    }
+    if (password.length < 4) {
+        Materialize.toast('Please enter a valid password', 4000, 'rounded');
+        return;
+    }
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        Materialize.toast(error.message, 4000, 'rounded');
+ 
+    });
+
+
+});

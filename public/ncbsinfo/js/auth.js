@@ -22,6 +22,7 @@ var passProgress = document.getElementById('passProgress');
 var saveProgress = document.getElementById('saveProgress');
 
 var emailLoc;
+var newUser = false;
 
 function initApp() {
 // Listening for auth state changes.
@@ -35,26 +36,57 @@ function initApp() {
             CurrentUser = firebase.auth().currentUser;
             CurrentData = firebase.database();
             emailLoc = user.email.replace("@", "_").replace(".", "_");
-            CurrentData.ref('newUsers/' + emailLoc).once('value').then(function (snapshot) {
 
-                if (snapshot.val().name !== undefined) {
-                    NameData = snapshot.val().name;
-                    userNameDisplay.textContent = NameData;
-                    userProgress.style.display = 'none';
+            CurrentData.ref('newUsers/' + emailLoc + '/browserLogin').set(String(new Date())).then(function () {
+
+                CurrentData.ref('newUsers/' + emailLoc).once('value').then(function (snapshot) {
+
+                    if (snapshot.val().name !== undefined) {
+                        NameData = snapshot.val().name;
+                        userNameDisplay.textContent = NameData;
+                        userProgress.style.display = 'none';
+                        $("#side_nav_name").text(NameData);
+                        $("#side_nav_email").text(user.email);
+                    }
+
+                    if (snapshot.val().defaultRoute !== undefined) {
+                        currentDefaultRoute = String(snapshot.val().defaultRoute);
+                        defaultRoute.textContent = getRouteName(String(snapshot.val().defaultRoute));
+
+                    }
+
+                    if (snapshot.val().notificationPreference !== undefined) {
+                        document.getElementById('notiPreference').checked = true;
+
+                    }
+
+                }).catch(function (error) {
+
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+
+                    Materialize.toast(error.message, 4000, 'rounded');
+
+                });
+
+
+            }).catch(function (error) {
+
+                if (error.code === "PERMISSION_DENIED") {
+                    CurrentData.ref('authEmails/' + user.uid).set(user.email).then(function () {
+                        CurrentData.ref('newUsers/' + emailLoc + '/name').set("Your Name");
+                        CurrentData.ref('newUsers/' + emailLoc + '/defaultRoute').set("0");
+                        CurrentData.ref('newUsers/' + emailLoc + '/notificationPreference').set("1");
+                        userProgress.style.display = 'none';
+                        newUser = true;
+                        localStorage.setItem("newUser", newUser);
+                        location.reload();
+                    });
+                } else {
+                    Materialize.toast(error.message, 4000, 'rounded');
                 }
-
-                if (snapshot.val().defaultRoute !== undefined) {
-                    currentDefaultRoute = String(snapshot.val().defaultRoute);
-                    defaultRoute.textContent = getRouteName(String(snapshot.val().defaultRoute));
-
-                }
-
-                if (snapshot.val().notificationPreference !== undefined) {
-                    document.getElementById('notiPreference').checked = true;
-
-                }
-
             });
+
 
         } else {
 // User is signed out.
@@ -67,6 +99,12 @@ function initApp() {
 }
 window.onload = function () {
     initApp();
+    var isNew = localStorage.getItem("newUser");
+    if(isNew!==null){
+        console.log("This is new user");
+        localStorage.removeItem('newUser');
+        Materialize.toast("Update your preferences", 4000, 'rounded');
+    }
 }
 ;
 signOut.onclick = function () {
@@ -74,7 +112,7 @@ signOut.onclick = function () {
         // Sign-out successful.
         window.location = "../index.html";
     }, function (error) {
-        alert(error.message);
+        Materialize.toast(error.message, 4000, 'rounded');
     });
 };
 signOutMobile.onclick = function () {
@@ -82,7 +120,7 @@ signOutMobile.onclick = function () {
         // Sign-out successful.
         window.location = "../index.html";
     }, function (error) {
-        alert(error.message);
+        Materialize.toast(error.message, 4000, 'rounded');
     });
 };
 
@@ -229,5 +267,5 @@ document.getElementById('saveButton').onclick = function () {
 };
 
 document.getElementById('cancelButton').onclick = function () {
-    location.reload(); 
+    location.reload();
 };

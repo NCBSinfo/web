@@ -31,9 +31,9 @@ function initApp() {
             });
 
         } else {
-// User is signed out.
-// Send user to home page
-            window.location = "../index.html";
+    // User is signed out.
+    // Send user to home page
+          window.location = "../index.html";
         }
     });
     // [END authstatelistener]

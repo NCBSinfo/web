@@ -27,9 +27,9 @@ function convertToReadable(data) {
 $(document).ready(function () {
     $(".button-collapse").sideNav();
     $('.collapsible').collapsible();
-    initApp(); 
+    initApp();
     fillStart(def_ncbs_iisc_week, def_ncbs_iisc_sunday);
-  
+
 });
 
 function hideNav() {
@@ -41,7 +41,6 @@ function initApp() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 // User is signed in.
-            userEmail.innerHTML = user.email;
             CurrentUser = firebase.auth().currentUser;
             CurrentData = firebase.database();
             emailLoc = user.email.replace("@", "_").replace(".", "_");
@@ -49,19 +48,24 @@ function initApp() {
 
                 if (snapshot.val().name !== undefined) {
                     NameData = snapshot.val().name;
-                    userNameDisplay.textContent = NameData;
-                    userProgress.style.display = 'none';
+
+                    $("#side_nav_name").text(NameData);
+                    $("#side_nav_email").text(user.email);
+                    $("#userEmail").text(user.email);
+
                 }
 
                 if (snapshot.val().defaultRoute !== undefined) {
                     currentDefaultRoute = String(snapshot.val().defaultRoute);
-                    defaultRoute.textContent = getRouteName(String(snapshot.val().defaultRoute));
+
 
                 }
 
             });
 
         } else {
+            $("#side_nav_name").text("NCBSinfo web");
+            $("#side_nav_email").text("beta");
             $("#dash_nav").hide();
             $("#dash_divider").hide();
             $("#userEmail").hide();
@@ -153,3 +157,51 @@ function fillTrips(routeWeek, routeSunday) {
         pastSunday.appendChild(a);
     }
 }
+
+function fillBuggy(ncbs, mandara) {
+    var pastWeek = document.getElementById('transportWeek_buggy');
+    var pastSunday = document.getElementById('transportSunday_buggy');
+
+    while (pastWeek.firstChild) {
+        pastWeek.removeChild(pastWeek.firstChild);
+    }
+
+    while (pastSunday.firstChild) {
+        pastSunday.removeChild(pastSunday.firstChild);
+    }
+
+    pastWeek.textContent = "From NCBS";
+    pastSunday.textContent = "From Mandara";
+
+    var dummy1 = document.createElement('a');
+    dummy1.className = "collection-item";
+    pastWeek.appendChild(dummy1);
+    var dummy2 = document.createElement('a');
+    dummy2.className = "collection-item";
+    pastWeek.appendChild(dummy1);
+    pastSunday.appendChild(dummy2);
+
+    for (var i = 0; i < ncbs.length; i++) {
+        var a = document.createElement('a');
+        a.textContent = convertToReadable(ncbs[i]);
+        a.className = "collection-item";
+        pastWeek.appendChild(a);
+    }
+
+    for (var i = 0; i < mandara.length; i++) {
+        var a = document.createElement('a');
+        a.textContent = convertToReadable(mandara[i]);
+        a.className = "collection-item";
+        pastSunday.appendChild(a);
+    }
+}
+
+
+function signOut () {
+    firebase.auth().signOut().then(function () {
+        // Sign-out successful.
+        window.location = "../index.html";
+    }, function (error) {
+        Materialize.toast(error.message, 4000, 'rounded');
+    });
+};

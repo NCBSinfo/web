@@ -21,19 +21,43 @@ NCBSinfo 2016, Secret Biology
             <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Dashboard</a>
 
                 <ul class="right hide-on-med-and-down">
+                    <li><a onClick="goBack()" >Back</a></li>
+                    <li><a href="../" >Home</a></li>
+                     <li><a href="../transport" >Transport</a></li>
                     <li><a id="userEmail" >email@domain.com</a></li>
                     <li><a id="signOut">Log out</a></li>
                 </ul>
 
 
 
-                <ul id="nav-mobile" class="side-nav">
-                    <li><a id="signOutMobile" >Log out</a></li>
-                </ul>
                 <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
 
         </nav>
+
+        <ul id="nav-mobile" class="side-nav  left-align">
+            <li>
+                <div class="userView teal white-text">
+                    <a href="#!user"><img class="circle" src="../../icon.png"></a>
+                    <a href="#!name"><span  id="side_nav_name" class="white-text name">NCBSinfo web</span></a>
+                    <a href="#!email"><span id="side_nav_email" class="white-text email">beta</span></a>
+                </div>
+            </li>
+
+            <li id="dash_nav" class="active">
+                <a href="#!"> <i class="material-icons">polymer</i>Dashboard</a>
+            </li>
+            <li id="dash_divider"><div class="divider"></div></li>
+
+            <li>
+                <a href="#!" onclick="hideNav()"> <i class="material-icons">keyboard_backspace</i>Back</a>
+            </li>
+            <li> <a href="../"><i class="material-icons">home</i>Home</a> </li>
+            <li> <a href="../transport"><i class="material-icons">directions_bus</i>Transport</a> </li>
+            <li>
+                <a href="#!" id="signOutMobile"> <i class="material-icons">power_settings_new</i>Log out</a>
+            </li>
+        </ul>
 
 
         <main class="valign-wrapper">
@@ -45,10 +69,10 @@ NCBSinfo 2016, Secret Biology
                 <div class="row">
 
                     <div class="col s12">
-                        <div class="col offset-s2 s8 center">
+                        <div class="col s12 m10 l8 offset-m1 offset-l2 center">
                             <div class="card blue-grey darken-1 hoverable">
                                 <div class="card-content white-text">
-                                    <span id = 'userNameDisplay' class="card-title" > First Name                                      
+                                    <span id = 'userNameDisplay' class="card-title" > Name                                      
                                     </span> <span class="spanLabel">( user name )</span>
                                     <a id ='username' class="btn-floating blankButton waves-effect waves-light modal-trigger1 right" href="#popup"><i class="material-icons">mode_edit</i></a>
                                 </div>
@@ -60,7 +84,7 @@ NCBSinfo 2016, Secret Biology
                     </div>
 
                     <div class="col s12">
-                        <div class="col offset-s2 s8 center">
+                        <div class="col s12 m10 l8 offset-m1 offset-l2 center">
                             <div class="card blue-grey darken-1 hoverable z-depth-3">
                                 <div class="card-content white-text">
                                     <span class="card-title" > Preferences</span>
@@ -224,7 +248,7 @@ NCBSinfo 2016, Secret Biology
         <footer class="page-footer teal">
             <div class="footer-copyright">
                 <div class="container">
-                    Contact developers (ncbs.mod@gmail.com) for any problems or issues.
+                    Contact developers (contact@secretbiology.con) for any problems or issues.
                 </div>
             </div>
         </footer>
@@ -238,6 +262,7 @@ NCBSinfo 2016, Secret Biology
         <script type="text/javascript" src="../../js/materialize.min.js"></script>
         <script type="text/javascript" src="../../ncbsinfo/js/firebaseConfig.js"></script>
         <script type="text/javascript" src="../../ncbsinfo/js/auth.js"></script>
+        <script type="text/javascript" src="dashboard.js"></script>
     </body>
 
 </html>
