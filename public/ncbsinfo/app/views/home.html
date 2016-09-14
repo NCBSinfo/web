@@ -1,0 +1,41 @@
+<div layout="column" layout-align="start center" flex layout-fill ng-controller="homeController">
+
+    <div id="map_canvas" class="map md-whiteframe-z2" ng-style="{width: mapWidth+'%', height:mapHeight+'%'}"></div>
+
+    <div layout="row" layout-align="center center" ng-style="{'margin-top':mapMarginBottom+'%', width: '100%'}">
+
+        <md-button class="md-icon-button" aria-label="Left">
+            <md-icon md-svg-icon="app/resources/img/icons/left.svg"></md-icon>
+        </md-button>
+        <div layout="column" layout-align="center center" flex-offset="10">
+            <div class="md-title">NCBS-Mandara Buggy</div>
+            <div class="md-subheader">2 Hrs 30 min 20 sec</div>
+        </div>
+        <div flex-offset="10">
+            <md-button class="md-icon-button" aria-label="Right">
+                <md-icon md-svg-icon="app/resources/img/icons/right.svg"></md-icon>
+            </md-button>
+        </div>
+    </div>
+
+    <div flex layout="row" layout-align="center center" ng-style="{'margin-top':'5%', width: '100%'}">
+
+
+        <div ng-repeat="btn in homeButtons"
+             ng-style="{margin:'10px'}" flex="15">
+
+            <div layout="column" ng-if="btn.onHome == true" layout-align="center center">
+                <div>
+                    <md-icon md-svg-icon="{{btn.icon}}"
+                             ng-style="{height: '50px', width: '50px', color:'black'}"></md-icon>
+                </div>
+                <div>{{btn.name}}</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div flex="10" layout="row" ng-style="{'margin-top':'3%', width: '100%'}"></div>
+
+</div>

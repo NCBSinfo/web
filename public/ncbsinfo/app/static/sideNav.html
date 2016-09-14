@@ -1,0 +1,23 @@
+<div class="layout-column" ng-controller="sideNavController">
+    <md-toolbar class="md-whiteframe-z2">
+        <div class="sideNavHeader">
+            <div class="sideNavImage"><img src="app/resources/img/icon.png"></div>
+            <div class="sideNavHeaderTitle">{{headerTitle}}</div>
+            <div class="sideNavSubTitle">{{headerSubTitle}}</div>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-list>
+            <div ng-repeat="item in menu">
+                <div ng-if="isOfflinemode == item.inOffline || item.inOffline  == true">
+                    <md-list-item md-ink-ripple ng-click="sideNavClick(item.name)"
+                                  ng-style="{'background' : isActive(item.name) ,
+                                  'color': textColor(item.name) }">
+                        <md-icon md-svg-icon={{item.icon}} ng-style="{'color': textColor(item.name)}"></md-icon>
+                        <p>{{item.name}}</p>
+                    </md-list-item>
+                </div>
+            </div>
+        </md-list>
+    </md-content>
+</div>

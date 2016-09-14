@@ -1,0 +1,30 @@
+<div ng-controller="contactController" class="layout" ng-cloak="">
+    <md-content class="md-padding layout-fill">
+        <md-tabs md-selected="selectedIndex" md-border-bottom="" md-autoselect="" md-dynamic-height>
+
+            <md-tab ng-repeat="tab in tabs" label={{tab.name}}>
+
+                <div class="layout-column layout-align-center layout-margin">
+
+                    <md-list-item class="md-3-line" ng-repeat="item in tab.list">
+                        <!--<img ng-src="app/resources/img/icons/contact.svg"
+                             md-colors="{{color}}"
+                             class="md-avatar"
+                             alt="{{item[0]}}"/>-->
+                        <div class="contactCircle" ng-style="{'background-color': color}">{{letter(item[0])}}</div>
+
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{item[0]}}</h3>
+                            <h4>{{item[1]}}</h4>
+                            <p>{{item[3]}}</p>
+                        </div>
+                    </md-list-item>
+
+                </div>
+
+            </md-tab>
+
+
+        </md-tabs>
+    </md-content>
+</div>
