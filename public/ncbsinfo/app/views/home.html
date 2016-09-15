@@ -2,17 +2,28 @@
 
     <div id="map_canvas" class="map md-whiteframe-z2" ng-style="{width: mapWidth+'%', height:mapHeight+'%'}"></div>
 
+
+    <div layout="row" layout-align="center center" ng-style="{'background':'teal', width: '100%', 'color':'white'}"
+         flex="10">
+        <div layout="row" layout-align="center center">
+            <div class="md-title">Next {{routes[currentRoute].type}} : {{nextTransport()}}</div>
+        </div>
+
+    </div>
+
     <div layout="row" layout-align="center center" ng-style="{'margin-top':mapMarginBottom+'%', width: '100%'}">
 
-        <md-button class="md-icon-button" aria-label="Left">
+        <md-button class="md-icon-button" aria-label="Left" ng-click="goPrevious()">
             <md-icon md-svg-icon="app/resources/img/icons/left.svg"></md-icon>
         </md-button>
         <div layout="column" layout-align="center center" flex-offset="10">
-            <div class="md-title">NCBS-Mandara Buggy</div>
-            <div class="md-subheader">2 Hrs 30 min 20 sec</div>
+            <div class="md-title">{{routes[currentRoute].from.toUpperCase() + ' - '
+                +routes[currentRoute].to.toUpperCase()}}
+            </div>
+            <div class="md-subheader">{{timeLeft().hours +' Hrs '+ timeLeft().mins+' min left'}}</div>
         </div>
         <div flex-offset="10">
-            <md-button class="md-icon-button" aria-label="Right">
+            <md-button class="md-icon-button" aria-label="Right" ng-click="goNext()">
                 <md-icon md-svg-icon="app/resources/img/icons/right.svg"></md-icon>
             </md-button>
         </div>
@@ -27,7 +38,7 @@
             <div layout="column" ng-if="btn.onHome == true" layout-align="center center">
                 <div>
                     <md-icon md-svg-icon="{{btn.icon}}"
-                             ng-style="{height: '50px', width: '50px', color:'black'}"></md-icon>
+                             ng-style="{height: '50px', width: '50px', color:'black'}" ng-click="buttonClick(btn.name)"></md-icon>
                 </div>
                 <div>{{btn.name}}</div>
             </div>

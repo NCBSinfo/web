@@ -1,0 +1,46 @@
+<div layout="row" layout-align="center center" layout-fill ng-controller="modeController">
+    <div layout="column" layout-align="center center" flex="90" flex-gt-md="60">
+        <div class="md-headline">Select mode</div>
+        <div layout-gt-xs="row" layout="column" layout-fill layout-align="center center"
+             ng-style="{'margin-top':offset().top}" flex>
+
+            <div flex-gt-xs="50">
+                <md-card class="{{cardClass1}}" ng-mouseover="riseDiv(1)" ng-mouseleave="lowerDiv()" >
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Guest</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>
+                            Access all essential functions including transport, contact and locations.
+                        </p>
+                    </md-card-content>
+                    <md-card-actions layout="column" layout-align="start">
+                        <md-button class="md-raised md-primary" ng-click="goGuest()">Explore</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+
+            <div flex-gt-xs="50">
+                <md-card class="{{cardClass2}}" ng-mouseover="riseDiv(2)" ng-mouseleave="lowerDiv()"
+                         ng-style="{'margin-left':offset().left}">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Login</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>
+                            All guest features plus events and profile preferences.
+                        </p>
+                    </md-card-content>
+                    <md-card-actions layout="column" layout-align="start">
+                        <md-button class="md-raised md-primary" ng-click="goLogin()">Authenticate</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+
+        </div>
+    </div>
+</div>

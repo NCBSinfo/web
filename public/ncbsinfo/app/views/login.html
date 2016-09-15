@@ -1,0 +1,58 @@
+<div layout="row" layout-align="center center" layout-fill ng-controller="loginController" ng-cloak>
+    <div layout="row" layout-align="center center" layout-fill flex="60">
+        <div flex="50">
+            <md-card ng-mouseover="riseDiv(1)" ng-mouseleave="lowerDiv()">
+                <md-card-content>
+                    <div class="md-inline-form">
+                        <md-content layout-padding>
+                            <div>
+                                <form name="userForm">
+                                    <div layout-gt-sm="column">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Email</label>
+                                            <input required type="email" name="email"
+                                                   ng-model="user.email"
+                                                   minlength="4" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+
+                                            <div ng-messages="userForm.email.$error" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    This doesn't look like an email.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Password</label>
+                                            <input required type="password" name="password"
+                                                   minlength="6"
+                                                   ng-model="user.password">
+
+                                            <div ng-messages="userForm.password.$error" role="alert">
+                                                <div ng-message-exp="['required', 'minlength']">
+                                                    Password should be at least 6 character long
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </form>
+                            </div>
+                        </md-content>
+                    </div>
+                </md-card-content>
+                <md-card-actions>
+                    <md-button class="md-primary" ng-click="signIn(userForm)">
+                        <md-tooltip md-direction="bottom">
+                            Sign in to your NCBSinfo account.
+                        </md-tooltip>
+                        Sign in
+                    </md-button>
+                    <md-button class="md-primary" ng-click="registerAlert(userForm)">
+                        <md-tooltip md-direction="bottom">
+                            Create new account with this email and password.
+                        </md-tooltip>
+                        Register
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>

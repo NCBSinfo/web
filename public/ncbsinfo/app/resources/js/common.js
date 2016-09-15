@@ -3,6 +3,20 @@
  */
 
 var colors = ['#F44336', '#9C27B0', '#3F51B5', '#4CAF50', '#009688', '#795548'];
+var isConnected = true;
+var request = new XMLHttpRequest();
+request.open('GET', "app/views/home.html", true);
+request.setRequestHeader("Content-Type", "application/json");
+request.send(JSON.stringify({search: 'NCBSinfo'}));
+request.onreadystatechange = function () {
+    if (request.status == 0) {
+        isConnected = false;
+        console.log('No internet connection found');
+    }
+    else {
+        console.log('Successfully connected.');
+    }
+};
 
 function convertToReadable(data) {
 
@@ -70,10 +84,9 @@ function getArray() {
     return refinedModel;
 }
 
-String.prototype.toDate = function () {
-    return moment(moment().format('DD-MM-YYYY') + " " + this, "DD-MM-YYYY HH:mm");
-
-};
+function convertToDate(input) {
+    return moment(moment().format('DD-MM-YYYY') + " " + input, "DD-MM-YYYY HH:mm");
+}
 
 function convertToWeekFormat(weekTrips, sundayTrips) {
     var monday = [];
@@ -82,7 +95,7 @@ function convertToWeekFormat(weekTrips, sundayTrips) {
     monday.push(weekTrips[0]);
     for (var j = 1; j < weekTrips.length; j++) {
 
-        if (monday[0].toDate() < weekTrips[j].toDate()) {
+        if (convertToDate(monday[0]) < convertToDate(weekTrips[j])) {
             monday.push(weekTrips[j]);
         }
         else {
@@ -98,7 +111,7 @@ function convertToWeekFormat(weekTrips, sundayTrips) {
     sunday.push(sundayTrips[0]);
 
     for (var i = 1; i < sundayTrips.length; i++) {
-        if (sunday[0].toDate() < sundayTrips[i].toDate()) {
+        if (convertToDate(sunday[0]) < convertToDate(sundayTrips[i])) {
             sunday.push(sundayTrips[i]);
         }
         else {
@@ -116,43 +129,44 @@ function convertToWeekFormat(weekTrips, sundayTrips) {
 }
 
 function nextTransport(weekTrips, sundayTrips) {
+    var now = moment();
     var allTrips = convertToWeekFormat(weekTrips, sundayTrips);
     var gotTrip = false;
     var nextTrip;
-    if (moment().weekday() == 0) { //0 is Monday
+    if (now.weekday() == 0) { //0 is Monday
         for (var i = 0; i < allTrips.monday.length; i++) {
-            if (moment() < allTrips.monday[i].toDate()) {
+            if (now < convertToDate(allTrips.monday[i])) {
                 gotTrip = true;
-                nextTrip = allTrips.monday[i].toDate();
+                nextTrip = convertToDate(allTrips.monday[i]);
                 break;
             }
         }
         if (!gotTrip) {
-            nextTrip = allTrips.weekFormat[0].toDate().add(1, 'days');
+            nextTrip = convertToDate(allTrips.weekFormat[0]).add(1, 'days');
         }
     }
-    else if (moment().weekday() == 6) { //6 is Sunday
+    else if (now.weekday() == 6) { //6 is Sunday
         for (var j = 0; j < allTrips.sunday.length; j++) {
-            if (moment() < allTrips.sunday[j].toDate()) {
+            if (now < convertToDate(allTrips.sunday[j])) {
                 gotTrip = true;
-                nextTrip = allTrips.sunday[j].toDate();
+                nextTrip = convertToDate(allTrips.sunday[j]);
                 break;
             }
         }
         if (!gotTrip) {
-            nextTrip = allTrips.monday[0].toDate().add(1, 'days');
+            nextTrip = convertToDate(allTrips.monday[0]).add(1, 'days');
         }
     }
     else {
         for (var k = 0; k < allTrips.sunday.length; k++) {
-            if (moment() < allTrips.weekFormat[k].toDate()) {
+            if (now < convertToDate(allTrips.weekFormat[k])) {
                 gotTrip = true;
-                nextTrip = allTrips.weekFormat[k].toDate();
+                nextTrip = convertToDate(allTrips.weekFormat[k]);
                 break;
             }
         }
         if (!gotTrip) {
-            nextTrip = allTrips.weekFormat[0].toDate().add(1, 'days');
+            nextTrip = convertToDate(allTrips.weekFormat[0]).add(1, 'days');
         }
     }
 
@@ -161,9 +175,46 @@ function nextTransport(weekTrips, sundayTrips) {
 }
 
 
-function loadMap() {
-    new google.maps.Map(document.getElementById('map_canvas'), {
-        center: {lat: 13.070639, lng: 77.581128},
-        zoom: 15
-    });
+function loadMap(lat, lng, route) {
+
+    if (isConnected) {
+        var map = new google.maps.Map(document.getElementById('map_canvas'), {
+            center: {lat: lat, lng: lng},
+            zoom: 15
+        });
+
+        if (route != 8) {
+
+            var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map
+            });
+        }
+        else {
+
+            var CBLCoords = [
+                {lat: 13.066134, lng: 77.578620},
+                {lat: 13.070068, lng: 77.581155},
+                {lat: 13.071615, lng: 77.575383},
+                {lat: 13.069755, lng: 77.574868},
+                {lat: 13.069441, lng: 77.575661},
+                {lat: 13.069337, lng: 77.575661},
+                {lat: 13.069044, lng: 77.576370},
+                {lat: 13.067288, lng: 77.575769}
+            ];
+
+            // Construct the polygon.
+            new google.maps.Polygon({
+                paths: CBLCoords,
+                strokeColor: '#9d3a9bea',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#9d3a9bea',
+                fillOpacity: 0.35
+            }).setMap(map);
+
+        }
+    }
+
+
 }

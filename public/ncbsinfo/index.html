@@ -11,19 +11,20 @@
     <title>NCBSinfo</title>
 </head>
 <body ng-app="NCBSinfo" ng-cloak>
-<div layout="row" layout-fill>
+<div layout="row" layout-fill ng-controller="mainController">
+
 
     <md-sidenav
             class="md-sidenav-left md-whiteframe-z2"
             md-component-id="left"
             md-is-locked-open="$mdMedia('gt-sm')"
-            md-whiteframe="4">
+            md-whiteframe="4" ng-if="$root.kk">
         <md-content ui-view="defaultSideNav"></md-content>
 
 
     </md-sidenav>
 
-    <div flex layout="column" >
+    <div flex layout="column">
         <md-toolbar class="md-whiteframe-z2">
             <div ui-view="defaultHeader"></div>
         </md-toolbar>
@@ -43,6 +44,9 @@
 <script type="text/javascript" src="app/resources/js/angular/angular-messages.min.js"></script>
 <script type="text/javascript" src="app/resources/js/angular/angular-material.min.js"></script>
 <script type="text/javascript" src="app/resources/js/angular/angular-ui-router.js"></script>
+<script type="text/javascript" src="app/resources/js/firebase.js"></script>
+<script type="text/javascript" src="app/resources/js/angular/angularfire.js"></script>
+<script type="text/javascript" src="app/resources/js/firebaseFunctions.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHio5DkXwj1nZJ6byrFPs8nb0QpBmqZMk"></script>
 
 <!--Load controllers before configuration and models before that-->
@@ -52,6 +56,7 @@
 <script type="text/javascript" src="app/resources/js/models.js"></script>
 <script type="text/javascript" src="app/resources/js/controllers.js"></script>
 <script type="text/javascript" src="app/resources/js/configuration.js"></script>
+
 
 </body>
 </html>
