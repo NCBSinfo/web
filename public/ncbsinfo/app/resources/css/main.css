@@ -2,18 +2,32 @@
     background-color: blue;
 }
 
-/*
-main {
-    overflow-y: auto;
-}
-*/
-
-.transportTab {
-    border-bottom: thin solid lightgray;
+.sideNav-image, .sideNav-Header, .sideNav-subHeader {
+    margin-left: 16px;
 }
 
-.transportTabHeader {
-    font-weight: bold;
+.sideNav-image img {
+    margin-top: 20px;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+}
+
+.sideNav-Header, .sideNav-subHeader {
+    margin-top: 5px;
+}
+
+.sideNav-subHeader {
+    margin-bottom: 20px;
+    opacity: 0.8;
+    font-size: 13px;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+
+}
+
+.sideNav-Header {
+    margin-top: 16px;
+    font-size: 16px;
 }
 
 .contactCircle {
@@ -27,25 +41,24 @@ main {
     margin-top: 5px;
 }
 
-.map {
-    height: calc(100% - 244px);
-    width: 30%;
-    margin: 0 10px 0 10px;
+.dashboardHint {
+
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey;
 }
 
-.eventItem {
-    height: 75px;
-    width: 75px;
-    margin-right: 16px;
-    background-color: teal;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.transportTab {
+    border-bottom: thin solid lightgray;
 }
 
-.eventNote {
-    height: 200px;
-    text-align: center;
+.transportTabHeader {
+    font-weight: bold;
 }

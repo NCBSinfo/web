@@ -1,20 +1,72 @@
 /**
- * Created by Dexter on 12-09-16.
+ * Created by Dexter on 17-09-16.
  */
+var colors = ['#F44336', '#9C27B0', '#3F51B5', '#4CAF50', '#009688', '#795548'];
+
+var sideNavList =
+{
+    dashboard: {
+        name: 'Dashboard',
+        icon: 'app/resources/img/icons/dashboard.svg',
+        onOffline: false,
+        onHome: false,
+        onAuth: false,
+        href: 'dashboard'
+    },
+    home: {
+        name: 'Home',
+        icon: 'app/resources/img/icons/home.svg',
+        onOffline: true,
+        onHome: false,
+        onAuth: false,
+        href: 'home'
+    },
+    transport: {
+        name: 'Transport',
+        icon: 'app/resources/img/icons/shuttle.svg',
+        onOffline: true,
+        onHome: true,
+        onAuth: true,
+        href: 'transport'
+    },
+    events: {
+        name: 'Events',
+        icon: 'app/resources/img/icons/events.svg',
+        onOffline: false,
+        onHome: true,
+        onAuth: true,
+        href: 'events'
+    },
+    contacts: {
+        name: 'Contacts',
+        icon: 'app/resources/img/icons/contact.svg',
+        onOffline: true,
+        onHome: true,
+        onAuth: true,
+        href: 'contacts'
+    },
+    locations: {
+        name: 'Locations',
+        icon: 'app/resources/img/icons/lecturehall.svg',
+        onOffline: true,
+        onHome: true,
+        onAuth: false,
+        href: 'locations'
+    },
+    settings: {
+        name: 'Settings',
+        icon: 'app/resources/img/icons/settings.svg',
+        onOffline: true,
+        onHome: true,
+        onAuth: true,
+        href: 'settings'
+    }
+
+
+};
 
 var SHUTTLE = 'shuttle';
 var BUGGY = 'buggy';
-
-var navBarMenu = [
-    {name: 'Dashboard', icon: "app/resources/img/icons/dashboard.svg", inOffline: false, onHome: false},
-    {name: 'Home', icon: "app/resources/img/icons/home.svg", inOffline: true, onHome: false},
-    {name: 'Transport', icon: "app/resources/img/icons/shuttle.svg", inOffline: true, onHome: true},
-    {name: 'Events', icon: "app/resources/img/icons/events.svg", inOffline: false, onHome: true},
-    {name: 'Contacts', icon: "app/resources/img/icons/contact.svg", inOffline: true, onHome: true},
-    {name: 'Locations', icon: "app/resources/img/icons/lecturehall.svg", inOffline: true, onHome: true},
-    {name: 'Settings', icon: "app/resources/img/icons/settings.svg", inOffline: true, onHome: true},
-    {name: 'Logout', icon: "app/resources/img/icons/logout.svg", inOffline: false, onHome: false}
-];
 
 var routes = [
     {

@@ -1,87 +1,83 @@
-app.factory("Auth", ["$firebaseAuth",
-    function ($firebaseAuth) {
-        return $firebaseAuth();
-    }
-]);
+/**
+ * Created by Dexter on 16-09-16.
+ */
+
+
 
 
 app.config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 
 
-    // $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise("/setup");
+
+
+    //To remove trailing slashes
+    $urlRouterProvider.rule(function ($injector, $location) {
+        var path = $location.path();
+        var hasTrailingSlash = path[path.length - 1] === '/';
+        if (hasTrailingSlash) {
+            return path.substr(0, path.length - 1);
+        }
+    });
+
 
     $mdThemingProvider.theme('default')
-        .primaryPalette('teal')
-        .accentPalette('deep-orange');
+        .primaryPalette('teal', {
+            'default': '400',
+            'hue-1': '100',
+            'hue-2': '600',
+            'hue-3': '700'
+        })
+        .accentPalette('red');
 
 
+    /**
+     * Main template of website
+     */
+
+    var extractStatePara = "";
     var mainView = {
         name: 'mainView',
-        url: "/:name",
+        url: "/:param",
         views: {
-            mainContent: {
+            '': {templateUrl: getTemplate('mainTemplate').url},
+            'header@mainView': {templateUrl: getTemplate('header').url},
+            'sideNav@mainView': {
+                templateUrl: getTemplate('sideNav').url,
+                controller: getTemplate('sideNav').controller
+            },
+            'viewContent@mainView': {
                 templateUrl: function ($stateParams) {
-                    return 'app/views/' + getParameter($stateParams.name) + '.html';
-                }
-            },
-            defaultHeader: {
-                templateUrl: 'app/static/header.html',
-                controller: 'headerController'
-
-            },
-            defaultFooter: {
-                templateUrl: 'app/static/footer.html'
-            },
-            defaultSideNav: {
-                templateUrl: 'app/static/sideNav.html',
-                controller: 'sideNavController'
+                    extractStatePara = $stateParams.param;
+                    return getTemplate(extractStatePara).url
+                },
+                controller: getTemplate(extractStatePara).controller
             }
         }
-
     };
 
+    var actionView = {
+        name: 'actionView',
+        url: "/action/mode=:mode&oobCode=:oobCode&apiKey=:apiKey",
+        views: {
+            '': {templateUrl: getTemplate('mainTemplate').url},
+            'header@actionView': {templateUrl: getTemplate('header').url},
+            'viewContent@actionView': {
+                templateUrl: getTemplate('actionView').url,
+                controller: getTemplate('actionView').controller
+            }
+        }
+    };
 
     $stateProvider
-        .state(mainView);
+        .state(mainView)
+        .state(actionView);
 
-})
-;
+    $urlRouterProvider.otherwise("/");
+});
 
-app.controller('mainController', mainController);
-app.controller('modeController', modeController);
-app.controller('loginController', loginController);
-app.controller('headerController', headerController);
-app.controller('sideNavController', ['$scope', '$rootScope', '$stateParams', '$state', '$mdSidenav', 'setupService', sideNavController]);
-app.controller('homeController', homeController);
-app.controller('transportController', transportController);
-app.controller('contactController', contactController);
-app.controller('eventController', eventController);
-app.controller('errorController', errorController);
-app.controller('logoutController', logoutController);
 
-function getParameter(input) {
 
-    switch (input.toLowerCase().trim()) {
-        case 'home':
-            return 'home';
-        case 'transport':
-            return 'transport';
-        case 'contacts':
-            return 'contacts';
-        case 'events':
-            return 'events';
-        case 'setup':
-            return 'modes';
-        case 'login':
-            return 'login';
-        case 'register':
-            return 'login';
-        case 'logout':
-            return 'logout';
-        default :
-            return '404';
 
-    }
-}
+
+
 

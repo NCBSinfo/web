@@ -1,62 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="NCBSinfo">
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0/angular-material.css"/>-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="app/resources/css/angular-material.css">
     <link rel="stylesheet" href="app/resources/css/main.css">
-    <link rel="stylesheet" href="app/resources/css/sideNav.css">
-    <title>NCBSinfo</title>
+    <title>
+        NCBSinfo
+    </title>
 </head>
-<body ng-app="NCBSinfo" ng-cloak>
-<div layout="row" layout-fill ng-controller="mainController">
-
-
-    <md-sidenav
-            class="md-sidenav-left md-whiteframe-z2"
-            md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')"
-            md-whiteframe="4" ng-if="$root.kk">
-        <md-content ui-view="defaultSideNav"></md-content>
-
-
-    </md-sidenav>
-
-    <div flex layout="column">
-        <md-toolbar class="md-whiteframe-z2">
-            <div ui-view="defaultHeader"></div>
-        </md-toolbar>
-        <md-content layout-fill flex>
-            <div ui-view="mainContent" layout-fill flex></div>
-        </md-content>
-    </div>
-
-
-</div>
-
+<body ng-cloak>
+<div layout="column" layout-fill ui-view></div>
 <!--TODO: change to minified after development-->
-<script type="text/javascript" src="app/resources/js/jQmin.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular-aria.min.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular-animate.min.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular-messages.min.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular-material.min.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angular-ui-router.js"></script>
-<script type="text/javascript" src="app/resources/js/firebase.js"></script>
-<script type="text/javascript" src="app/resources/js/angular/angularfire.js"></script>
-<script type="text/javascript" src="app/resources/js/firebaseFunctions.js"></script>
+<!--All external libraries-->
+<script type="text/javascript" src="app/resources/js/lib/jQmin.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular-aria.min.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular-animate.min.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular-messages.min.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular-material.min.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angular-ui-router.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/firebase.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/angularfire.js"></script>
+<script type="text/javascript" src="app/resources/js/lib/moments.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHio5DkXwj1nZJ6byrFPs8nb0QpBmqZMk"></script>
+<!--app specific libraries-->
 
-<!--Load controllers before configuration and models before that-->
-<script type="text/javascript" src="app/resources/js/moments.js"></script>
-<script type="text/javascript" src="app/resources/js/common.js"></script>
-<script type="text/javascript" src="app/resources/js/allLists.js"></script>
-<script type="text/javascript" src="app/resources/js/models.js"></script>
-<script type="text/javascript" src="app/resources/js/controllers.js"></script>
+<script type="text/javascript" src="app/resources/js/constants.js"></script>
+<script type="text/javascript" src="app/resources/js/models/lists.js"></script>
+<script type="text/javascript" src="app/resources/js/models/allModels.js"></script>
 <script type="text/javascript" src="app/resources/js/configuration.js"></script>
-
-
+<script type="text/javascript" src="app/resources/js/services/commonFunctions.js"></script>
+<script type="text/javascript" src="app/resources/js/services/authService.js"></script>
+<script type="text/javascript" src="app/resources/js/services/setupFactory.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/sideNavController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/smallControllers.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/homeController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/eventsController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/errorController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/actionController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/loginController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/transportController.js"></script>
+<script type="text/javascript" src="app/resources/js/controllers/dashboardController.js"></script>
 </body>
 </html>

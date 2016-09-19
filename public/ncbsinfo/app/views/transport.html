@@ -1,32 +1,33 @@
-<div ng-controller="transportController" class="layout" ng-cloak="">
-    <md-content class="md-padding layout-fill">
-        <md-tabs md-selected="selectedIndex" md-border-bottom="" md-autoselect="" md-dynamic-height>
-            <md-tab ng-repeat="tab in tabs" label="{{tab.tabName}}">
+<div ng-controller="transportController" ng-cloak layout-fill>
 
-                <div class="layout-row layout-align-center layout-margin">
-                    <div flex="40">
-                        <md-list>
-                            <md-list-item class="layout-align-center-end transportTabHeader" >{{tab.weekTitle}}</md-list-item>
-                        </md-list>
-                        <md-list>
-                            <md-list-item class="layout-align-center-center transportTab"
-                                          ng-repeat="item in tab.weekTrips"> {{item}}
-                            </md-list-item>
-                        </md-list>
-                    </div>
-                    <div flex="40">
-                        <md-list>
-                            <md-list-item class="layout-align-center-end transportTabHeader">{{tab.sundayTitle}}</md-list-item>
-                        </md-list>
-                        <md-list>
-                            <md-list-item class="layout-align-center-center transportTab"
-                                          ng-repeat="item2 in tab.sundayTrips">{{item2}}
-                            </md-list-item>
-                        </md-list>
-                    </div>
+    <md-tabs md-selected=selectedIndex layout-fill md-swipe-content>
+        <md-tab ng-repeat="tab in allTabs" label="{{tab.tabName}}">
+            <div class="layout-row layout-align-center layout-margin">
+                <div flex="40">
+                    <md-list>
+                        <md-list-item class="layout-align-center-end transportTabHeader">{{tab.weekTitle}}
+                        </md-list-item>
+                    </md-list>
+                    <md-list>
+                        <md-list-item class="layout-align-center-center transportTab"
+                                      ng-repeat="item in tab.weekTrips"> {{item}}
+                        </md-list-item>
+                    </md-list>
                 </div>
+                <div flex="40">
+                    <md-list>
+                        <md-list-item class="layout-align-center-end transportTabHeader">{{tab.sundayTitle}}
+                        </md-list-item>
+                    </md-list>
+                    <md-list>
+                        <md-list-item class="layout-align-center-center transportTab"
+                                      ng-repeat="item2 in tab.sundayTrips">{{item2}}
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </div>
 
-            </md-tab>
-        </md-tabs>
-    </md-content>
+        </md-tab>
+    </md-tabs>
+
 </div>
