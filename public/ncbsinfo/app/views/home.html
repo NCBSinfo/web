@@ -38,7 +38,8 @@
             <div layout="column" ng-if="btn.onHome == true" layout-align="center center">
                 <div>
                     <md-icon md-svg-icon="{{btn.icon}}"
-                             ng-style="{height: '50px', width: '50px', color:'black'}" ng-click="buttonClick(btn.name)"></md-icon>
+                             ng-style="{height: '50px', width: '50px', color:'black'}"
+                             ng-click="buttonClick(btn.href)"></md-icon>
                 </div>
                 <div>{{btn.name}}</div>
             </div>

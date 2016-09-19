@@ -65,7 +65,7 @@ app.service('setupService', function ($state, appConstants, $mdMedia, commonFunc
 
 
     this.isNavOpen = function () {
-        if ($mdMedia('gt-sm') ) {
+        if ($mdMedia('gt-sm')) {
             var param = $state.params.param;
             if (param == '') {
                 return false;

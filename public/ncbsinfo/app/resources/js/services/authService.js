@@ -11,6 +11,10 @@ var config = {
 };
 firebase.initializeApp(config);
 
+app.controller('FirebaseResolver', function($scope, $route, data) {
+    $scope.user = data;
+});
+
 app.service('authService', function ($firebaseAuth, setupService, $mdToast, commonFunctions, $firebaseObject) {
 
     var dataSending = {

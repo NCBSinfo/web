@@ -2,7 +2,6 @@
  * Created by Dexter on 17-09-16.
  */
 app.controller('sideNavController', function ($state, $scope, setupService, commonFunctions, $mdDialog, authService) {
-    $scope.isOpen = setupService.isNavOpen() && $state.current.param != '404';
 
     $scope.title = setupService.getInfo().name;
     $scope.subtile = setupService.getInfo().email;

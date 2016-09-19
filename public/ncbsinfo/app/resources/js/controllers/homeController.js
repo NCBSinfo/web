@@ -4,7 +4,10 @@
 /**
  * Created by Dexter on 17-09-16.
  */
-app.controller('homeController', function ($scope, setupService, $mdMedia) {
+var currentRoute = 0;
+var currentLocation = 'NCBSinfo';
+
+app.controller('homeController', function ($state, $scope, setupService, $mdMedia) {
         setupService.setup();
         $scope.mapWidth = 100;
         $scope.mapHeight = 40;
@@ -12,8 +15,7 @@ app.controller('homeController', function ($scope, setupService, $mdMedia) {
         if ($mdMedia('xs')) {
             $scope.mapMarginBottom = 15;
         }
-        var currentRoute = 0;
-        var currentLocation = 'NCBSinfo';
+
 
         var homeButtons = [];
 
@@ -58,7 +60,9 @@ app.controller('homeController', function ($scope, setupService, $mdMedia) {
             loadMap(routes[currentRoute].lat, routes[currentRoute].lng, currentRoute);
         };
 
+
         $scope.nextTransport = function () {
+
             return nextTransport(routes[currentRoute].weekTrip, routes[currentRoute].sundayTrip).format('hh:mm A');
         };
 
@@ -74,7 +78,7 @@ app.controller('homeController', function ($scope, setupService, $mdMedia) {
 
         $scope.buttonClick = function (x) {
             currentLocation = x;
-            $state.transitionTo($state.current, {name: x.toLowerCase()}, {
+            $state.transitionTo($state.current, {param: x.toLowerCase()}, {
                 reload: true,
                 inherit: false,
                 notify: true
@@ -87,46 +91,52 @@ app.controller('homeController', function ($scope, setupService, $mdMedia) {
 
 function loadMap(lat, lng, route) {
 
-
-    var map = new google.maps.Map(document.getElementById('map_canvas'), {
-        center: {lat: lat, lng: lng},
-        zoom: 15
-    });
-
-    if (route != 8) {
-
-        var marker = new google.maps.Marker({
-            position: {lat: lat, lng: lng},
-            map: map
+    try {
+        var map = new google.maps.Map(document.getElementById('map_canvas'), {
+            center: {lat: lat, lng: lng},
+            zoom: 15
         });
+
+        if (route != 8) {
+
+            var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map
+            });
+        }
+        else {
+
+            var CBLCoords = [
+                {lat: 13.066134, lng: 77.578620},
+                {lat: 13.070068, lng: 77.581155},
+                {lat: 13.071615, lng: 77.575383},
+                {lat: 13.069755, lng: 77.574868},
+                {lat: 13.069441, lng: 77.575661},
+                {lat: 13.069337, lng: 77.575661},
+                {lat: 13.069044, lng: 77.576370},
+                {lat: 13.067288, lng: 77.575769}
+            ];
+
+            // Construct the polygon.
+            new google.maps.Polygon({
+                paths: CBLCoords,
+                strokeColor: '#9d3a9bea',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#9d3a9bea',
+                fillOpacity: 0.35
+            }).setMap(map);
+
+        }
     }
-    else {
-
-        var CBLCoords = [
-            {lat: 13.066134, lng: 77.578620},
-            {lat: 13.070068, lng: 77.581155},
-            {lat: 13.071615, lng: 77.575383},
-            {lat: 13.069755, lng: 77.574868},
-            {lat: 13.069441, lng: 77.575661},
-            {lat: 13.069337, lng: 77.575661},
-            {lat: 13.069044, lng: 77.576370},
-            {lat: 13.067288, lng: 77.575769}
-        ];
-
-        // Construct the polygon.
-        new google.maps.Polygon({
-            paths: CBLCoords,
-            strokeColor: '#9d3a9bea',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#9d3a9bea',
-            fillOpacity: 0.35
-        }).setMap(map);
-
+    catch (error) {
+        console.log('Google maps can not be loaded due to error');
     }
+
 
 }
 
+//TODO: find some cleaner solution to this
 function convertToDate(input) {
     return moment(moment().format('DD-MM-YYYY') + " " + input, "DD-MM-YYYY HH:mm");
 }

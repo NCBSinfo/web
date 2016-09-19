@@ -72,7 +72,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         .state(mainView)
         .state(actionView);
 
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider
+        .otherwise("/")
+
 });
 
 

@@ -34,10 +34,11 @@ function convertToReadable(data) {
 }
 
 function convertAll(myList) {
+    var newList = [myList.length];
     for (var i = 0; i < myList.length; i++) {
-        myList[i] = convertToReadable(myList[i]);
+        newList[i] = convertToReadable(myList[i]);
     }
-    return myList;
+    return newList;
 }
 
 function getArray() {

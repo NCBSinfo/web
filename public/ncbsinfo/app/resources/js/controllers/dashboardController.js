@@ -17,27 +17,5 @@ app.controller('dashboardController', function ($scope, setupService, authServic
         return authService.isDataSending().isIt;
     };
 
-    var User = function () {
-        return authService.getUserData();
-    };
-    $scope.email = function () {
-        return User().email
-    };
-    $scope.name.$viewValue = "uuu";
-
-    $scope.defaultRoute = function () {
-        return User().defaultRoute
-    };
-    $scope.notifications = function () {
-        return User().notifications
-    };
-
-    $scope.saveData = function () {
-        console.log($scope.email());
-        console.log($scope.userForm.name.$viewValue);
-        console.log($scope.user.route);
-        console.log($scope.notifications());
-    }
-
 
 });

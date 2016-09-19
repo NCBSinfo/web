@@ -18,13 +18,11 @@ app.controller('modesController', function ($scope, commonFunctions, setupServic
 });
 
 //TODO: use some proper function for toggle
-app.controller('headController', function ($scope, appConstants, $mdSidenav, $timeout) {
+app.controller('headController', function ($state, $scope, appConstants, $mdSidenav, setupService) {
     $scope.title = appConstants.name;
-
+    $scope.isShown = setupService.isNavOpen() && $state.params.param != '404';
     $scope.toggleNav = function () {
-        $timeout(function () {
-            $mdSidenav('left').open();
-        }, false);
+        $mdSidenav('left').toggle();
     }
 
 
@@ -50,13 +48,23 @@ app.controller('contactController', function ($scope, commonFunctions, setupServ
 
 
 app.controller('locationController', function ($scope, commonFunctions, setupService) {
-
     setupService.setup();
+    $scope.locationList = lectureHalls;
+
 
 });
 
 app.controller('settingsController', function ($scope, commonFunctions, setupService) {
 
     setupService.setup();
+
+});
+
+
+app.controller('templateController', function ($scope, $state) {
+
+    $scope.isShown = function () {
+        return !($state.params.param == '' || $state.params.param == 'login');
+    }
 
 });

@@ -1,5 +1,13 @@
-<div layout="row" layout-fill flex>
-    <div ui-view="sideNav"></div>
+<div layout="row" layout-fill flex ng-controller="templateController">
+
+    <md-sidenav class="md-sidenav-left md-hue-3 md-whiteframe-z2"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-xs')"
+                layout-fill
+                ng-if="isShown()"
+            >
+        <div ui-view="sideNav" layout-fill></div>
+    </md-sidenav>
     <div layout="column" flex>
         <div ui-view="header"></div>
         <div ui-view="viewContent" flex></div>
