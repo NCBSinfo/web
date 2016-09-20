@@ -1,8 +1,9 @@
 <div layout="column" layout-align="center center" layout-fill ng-controller="loginController">
 
     <div>Authentication!</div>
-    <md-content>
-        <md-card layout="column" class="md-whiteframe-4dp">
+
+    <div layout="row" ng-style="{width:'100%'}" layout-align="center center">
+        <md-card class="md-whiteframe-4dp" flex="90" flex-gt-xs="30">
             <md-card-content>
                 <div class="md-inline-form">
                     <md-content layout-padding>
@@ -53,10 +54,11 @@
                     Register
                 </md-button>
             </md-card-actions>
-            <md-progress-linear class="md-query md-accent" md-mode='indeterminate' ng-if="sendingData()"></md-progress-linear>
+            <md-progress-linear class="md-query md-accent" md-mode='indeterminate'
+                                ng-if="sendingData()"></md-progress-linear>
         </md-card>
-    </md-content>
-    <div class="md-subheader" ng-style="{'margin-top':'5px'}">Forgot Password?</div>
-    <div class="md-subheader" ng-style="{'margin-top':'5px'}">Need Help?</div>
+    </div>
+    <md-button ng-click="forgotPass(userForm)">Forgot Password?</md-button>
+    <div class="md-subheader" ng-style="{'margin-top':'5px'}">Need Help? email us at 'contact@secretbiology.com'</div>
 
 </div>

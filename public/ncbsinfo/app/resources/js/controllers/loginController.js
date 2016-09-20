@@ -23,6 +23,7 @@ app.controller('loginController', function ($scope, setupService, commonFunction
         }
     };
 
+
     $scope.registerAlert = function (form) {
         if (form.$valid) {
 
@@ -35,7 +36,18 @@ app.controller('loginController', function ($scope, setupService, commonFunction
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function (result) {
-                console.log("Clicked Ok : " + result);
+                if (form.$valid) {
+                    authService.createUser($scope.user.email, $scope.user.password);
+                }
+                else {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Fill the details correctly before submit')
+                            .position('right bottom')
+                            .hideDelay(2000)
+                    );
+                }
+                ;
             }, function () {
                 console.log("canccelled");
             });
@@ -48,6 +60,30 @@ app.controller('loginController', function ($scope, setupService, commonFunction
                     .hideDelay(2000)
             );
         }
+    };
+
+    $scope.forgotPass = function (form) {
+        if (form.email.$valid) {
+            var confirm = $mdDialog.confirm()
+                .title('You are sure?')
+                .textContent('We will send reset password email to \"' + form.email.$viewValue + '\"')
+                .clickOutsideToClose(true)
+                .ok('Yes')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function (result) {
+                authService.sendResetPassword(form.email.$viewValue);
+            });
+        }
+        else {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Email address is badly formatted')
+                    .position('right bottom')
+                    .hideDelay(2000)
+            );
+        }
+
     }
 
 });

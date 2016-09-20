@@ -57,7 +57,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 
     var actionView = {
         name: 'actionView',
-        url: "/action/mode=:mode&oobCode=:oobCode&apiKey=:apiKey",
+        url: "/action/set?mode=:&oobCode=:&apiKey=:",
         views: {
             '': {templateUrl: getTemplate('mainTemplate').url},
             'header@actionView': {templateUrl: getTemplate('header').url},

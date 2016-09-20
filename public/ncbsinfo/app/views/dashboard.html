@@ -15,29 +15,29 @@
                                 <div layout-gt-sm="column">
                                     <md-input-container class="md-block" flex-gt-xs>
                                         <label>Email</label>
-                                        <input ng-model="user.email" disabled>
+                                        <input ng-model="FireUser.email" disabled>
                                     </md-input-container>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Name</label>
-                                        <input md-maxlength="30" name="name" ng-model="user.name"/>
+                                        <input md-maxlength="30" name="name" ng-model="FireUser.name"/>
 
                                         <div class="dashboardHint">Tell us what we should call you!</div>
                                     </md-input-container>
                                     <div layout-gt-sm="row" layout="column">
                                         <md-input-container flex="50">
                                             <label>Default Route</label>
-                                            <md-select ng-model="user.route">
+                                            <md-select ng-model="FireUser.defaultRoute">
                                                 <md-option ng-repeat="(index,item) in routes" ng-value="item.number"
-                                                           ng-selected="index == defaultRoute()">
+                                                           ng-selected="index == FireUser.defaultRoute">
                                                     {{item.from.toUpperCase()+ ' - ' +item.to.toUpperCase() +
                                                     suffix(item.type)}}
                                                 </md-option>
                                             </md-select>
                                         </md-input-container>
                                         <md-input-container flex="50" layout-fill ng-style="{'margin-left':'16px'}">
-                                            <md-switch ng-model="notifications" ng-true-value="'ON'"
+                                            <md-switch ng-model="FireUser.notifications" ng-true-value="'ON'"
                                                        ng-false-value="'OFF'">
-                                                Notifications : {{notifications()}}
+                                                Notifications : {{FireUser.notifications}}
                                             </md-switch>
                                         </md-input-container>
                                     </div>
@@ -49,7 +49,7 @@
             </md-card-content>
             <md-card-action>
                 <div layout="row" layout-align="end">
-                    <md-button class=" md-primary" ng-click="changePass()">Change Password</md-button>
+                    <md-button class=" md-primary" ng-click="changPass()">Change Password</md-button>
                     <md-button class=" md-primary" ng-click="saveData()">Save</md-button>
                 </div>
             </md-card-action>

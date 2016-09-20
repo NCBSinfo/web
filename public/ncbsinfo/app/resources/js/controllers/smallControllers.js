@@ -17,7 +17,6 @@ app.controller('modesController', function ($scope, commonFunctions, setupServic
     };
 });
 
-//TODO: use some proper function for toggle
 app.controller('headController', function ($state, $scope, appConstants, $mdSidenav, setupService) {
     $scope.title = appConstants.name;
     $scope.isShown = setupService.isNavOpen() && $state.params.param != '404';
@@ -62,9 +61,8 @@ app.controller('settingsController', function ($scope, commonFunctions, setupSer
 
 
 app.controller('templateController', function ($scope, $state) {
-
+    console.log();
     $scope.isShown = function () {
-        return !($state.params.param == '' || $state.params.param == 'login');
+        return !($state.params.param == '' || $state.params.param == 'login' || $state.current.name=='actionView');
     }
-
 });

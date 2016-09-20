@@ -1,3 +1,61 @@
-<div ng-controller="actionController">
-    Reset Pass
+<div ng-controller="actionController" layout="column" layout-fill layout-align="center center">
+    <div layout="row" layout-align="center center" ng-style="{width:'100%'}">
+        <md-card ng-if="!isInvalid" flex-gt-xs="30">
+            <md-card-title>
+                <div class="md-headline">Reset Password</div>
+            </md-card-title>
+
+            <md-card-content class="md-inline-form">
+                <div class="md-subheader">{{email}}</div>
+                <div>
+                    <form name="actionForm">
+                        <div layout-gt-sm="column">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Password</label>
+                                <input required type="password" name="password"
+                                       minlength="6"
+                                       ng-model="password">
+
+                                <div ng-messages="actionForm.password.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength']">
+                                        Password should be at least 6 character long
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Confirm Password</label>
+                                <input required type="password" name="confirmPassword"
+                                       minlength="6"
+                                       ng-model="confirmPassword">
+
+                                <div ng-messages="actionForm.confirmPassword.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength']">
+                                        Password should be at least 6 character long
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </form>
+                </div>
+            </md-card-content>
+            <md-card-action layout="row" layout-align="end">
+                <md-button class="md-primary" ng-click="resetPass(actionForm)">Reset</md-button>
+            </md-card-action>
+        </md-card>
+
+
+        <md-content ng-if="isInvalid" layout="column" layout-align="center center">
+            <div class="md-headline" layout="row" layout-alin="center">{{header}}.</div>
+            <div layout="row" layout-align="center center" ng-style="{'margin':'16px'}" >
+                {{error}}
+            </div>
+            <md-button class="md-raised md-primary" ng-style="{color:'white', 'margin':'20px'} " ng-click="goHome()">
+                Go Home
+            </md-button>
+        </md-content>
+    </div>
+    <div ng-style="{'margin-top':'16px'}" class="md-subheader layout-align-center">In case of any issue, email :
+        contact@secretbiology.com
+    </div>
+
 </div>

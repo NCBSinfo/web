@@ -1,3 +1,55 @@
-<div ng-controller="eventsController">
-    Events here
+<div ng-controller="eventsController" class="layout" ng-cloak="" layout-fill>
+    <md-content layout-fill layout="column">
+        <div ng-if="dataLoading()">
+            <md-progress-linear class="md-warn" md-mode="query"></md-progress-linear>
+        </div>
+
+        <md-tabs md-selected="selectedIndex" md-border-bottom="" md-autoselect="" layout-fill
+                 md-center-tabs="true">
+            <md-tab label="Upcoming Events">
+                <div class="eventNote" ng-if="upcomingEmpty()" layout="row" layout-align="center center">
+                    No further events can be retrieved!<br>We will update you soon :)
+                </div>
+                <div class="layout-column layout-align-center layout-margin">
+                    <md-list-item class="md-2-line" ng-repeat="item in upComings">
+                        <div class="eventItem">
+                            <div layout="column" align="center center">
+                                <div class="md-headline"><b>{{getEventDate(item)}}</b></div>
+                                <div>{{getEventMonth(item)}}</div>
+                            </div>
+                        </div>
+                        <div class="md-list-item-text" layout="column" ng-click="eventDetails($event, item)">
+                            <h3>{{item.notificationTitle}}</h3>
+                            <h4>{{item.title}}</h4>
+                        </div>
+                    </md-list-item>
+                </div>
+            </md-tab>
+
+            <md-tab label="Past Events">
+                <div class="eventNote" ng-if="pastEmpty()" layout="row" layout-align="center center">
+                    No further events can be retrieved!<br>We will update you soon :)
+                </div>
+                <div class="layout-column layout-align-center layout-margin">
+                    <md-list-item class="md-2-line" ng-repeat="item in past">
+                        <div class="eventItem">
+                            <div layout="column" align="center center">
+                                <div class="md-headline"><b>{{getEventDate(item)}}</b></div>
+                                <div>{{getEventMonth(item)}}</div>
+                            </div>
+                        </div>
+                        <div class="md-list-item-text" layout="column" ng-click="eventDetails($event, item)">
+                            <h3>{{item.notificationTitle}}</h3>
+                            <h4>{{item.title}}</h4>
+                        </div>
+                    </md-list-item>
+                </div>
+            </md-tab>
+
+
+        </md-tabs>
+
+
+    </md-content>
+
 </div>

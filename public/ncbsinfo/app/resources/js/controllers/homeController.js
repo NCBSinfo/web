@@ -136,7 +136,6 @@ function loadMap(lat, lng, route) {
 
 }
 
-//TODO: find some cleaner solution to this
 function convertToDate(input) {
     return moment(moment().format('DD-MM-YYYY') + " " + input, "DD-MM-YYYY HH:mm");
 }

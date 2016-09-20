@@ -11,10 +11,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-app.controller('FirebaseResolver', function($scope, $route, data) {
-    $scope.user = data;
-});
-
 app.service('authService', function ($firebaseAuth, setupService, $mdToast, commonFunctions, $firebaseObject) {
 
     var dataSending = {
@@ -26,9 +22,13 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
     };
 
     var auth = $firebaseAuth();
+    var tempEmail = "email@domain.com";
+    if (localStorage.getItem('email') != null) {
+        tempEmail = localStorage.getItem('email');
+    }
     var userData = {
         name: 'User Name',
-        email: 'email',
+        email: tempEmail,
         defaultRoute: 0,
         notifications: 'ON'
     };
@@ -56,6 +56,17 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
                 dataSending.isIt = false;
             });
 
+
+            var publicObject = $firebaseObject(ref.child('public'));
+            publicObject.$loaded().then(function () {
+                localStorage.tableID = publicObject.tableID;
+                localStorage.publicAPI = publicObject.fusionAPI;
+            });
+            ref.child('webSync').child(refEmail).update(
+                {
+                    webLogin: moment().format('hh:mm:ss A DD MMM YY')
+                }
+            );
 
         }
     });
@@ -93,17 +104,23 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
         dataSending.isIt = true;
         var ref = firebase.database().ref();
         var refEmail = FireUser.email.replace("@", "_").replace(".", "_");
-        var fireObject = $firebaseObject(ref.child('newUsers').child(refEmail));
-        fireObject.name = user.name;
-        fireObject.defaultRoute = user.route;
-        fireObject.webSync = moment().format('hh:mm:ss A DD MMM YY');
+
+        var notification = 0;
+        //  fireObject.webSync = moment().format('hh:mm:ss A DD MMM YY');
         if (user.notifications == 'OFF') {
-            fireObject.notificationPreference = 2;
+            notification = 2;
+
         }
         else {
-            fireObject.notificationPreference = 1;
+            notification = 1;
         }
-        fireObject.$save().then(function (ref) {
+
+
+        ref.child('newUsers').child(refEmail).update({
+            defaultRoute: user.defaultRoute,
+            name: user.name,
+            notificationPreference: notification
+        }).then(function (ref) {
             dataSending.isIt = false;
             $mdToast.show(
                 $mdToast.simple()
@@ -115,7 +132,66 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
         }, function (error) {
             console.log("Error:", error);
         });
+
+        ref.child('webSync').child(refEmail).update(
+            {
+                webDataSync: moment().format('hh:mm:ss A DD MMM YY')
+            }
+        );
+
     };
+
+    this.sendResetPassword = function (email) {
+        auth.$sendPasswordResetEmail(email).then(function () {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent("Password reset email sent successfully!")
+                    .position('right bottom')
+                    .hideDelay(3000)
+            );
+            console.log("Password reset email sent successfully!");
+        }).catch(function (error) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(error.message)
+                    .position('right bottom')
+                    .hideDelay(3000)
+            );
+            console.error("Error: ", error);
+        });
+    };
+
+    this.createUser = function (email, password) {
+        auth.$createUserWithEmailAndPassword(email, password)
+            .then(function (firebaseUser) {
+                var ref = firebase.database().ref();
+                var refEmail = firebaseUser.email.replace("@", "_").replace(".", "_");
+                ref.child('authEmails').child(firebaseUser.uid).set(refEmail).then(function () {
+                    console.log(firebaseUser.uid + " created");
+                    localStorage.mode = "auth";
+                    localStorage.email = firebaseUser.email;
+                    commonFunctions.goTo('dashboard');
+                    mdToast.show(
+                        $mdToast.simple()
+                            .textContent("Update your basic information")
+                            .position('right bottom')
+                            .hideDelay(3000)
+                    );
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+
+            }).catch(function (error) {
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(error.message)
+                        .position('right bottom')
+                        .hideDelay(3000)
+                );
+                console.error("Error: ", error);
+            });
+    }
 
 
 });

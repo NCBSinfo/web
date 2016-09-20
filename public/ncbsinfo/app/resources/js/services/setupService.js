@@ -22,7 +22,6 @@ app.service('setupService', function ($state, appConstants, $mdMedia, commonFunc
         }
 
         var param = $state.params.param;
-
         if (param.length != 0) {
             switch (mode) {
                 case 'undefined':

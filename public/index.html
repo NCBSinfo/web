@@ -1,12 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="secretBiology">
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="ncbsinfo/app/resources/css/angular-material.css">
+    <link rel="stylesheet" href="ncbsinfo/app/resources/css/secretbio.css">
+    <title>
+        Secret Biology
+    </title>
 </head>
 <body>
 
-<a href="ncbsinfo">NCBSinfo</a>
+<div layout="column" layout-fill ng-controller="appControl">
+    <md-toolbar class="md-whiteframe-z2">
+        <div class="md-toolbar-tools">
+            <span flex>
+                <div layout="row" layout-align="center">
+                    <div>Secret Biology</div>
+                </div>
+            </span>
+        </div>
+    </md-toolbar>
+
+
+    <div flex layout="row" layout-margin layout-wrap layout-align="center center">
+        <md-card flex-gt-xs="25" class="md-whiteframe-z3">
+            <md-card-title class="md-headline">NCBSinfo</md-card-title>
+            <div>
+                <img ng-src="ncbsinfo/app/resources/img/images/ncbs_image.jpg" class="md-card-image">
+            </div>
+            <md-card-action layout="row" layout-align="end">
+                <md-button class="md-primary" ng-click="goNCBS()">Web App</md-button>
+                <md-button class="md-primary" ng-click="goAndroid()">Android App</md-button>
+            </md-card-action>
+        </md-card>
+    </div>
+
+</div>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/jQmin.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/angular.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/angular-aria.min.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/angular-animate.min.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/angular-messages.min.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/lib/angular-material.min.js"></script>
+<script type="text/javascript" src="ncbsinfo/app/resources/js/services/googleanalytics.js"></script>
+<script>
+    angular.module('secretBiology', ['ngMaterial'])
+            .controller('appControl', function ($scope, $window) {
+                $scope.goNCBS = function () {
+                    $window.location.href = 'ncbsinfo/';
+                };
+
+                $scope.goAndroid = function () {
+                    $window.location.href = 'https://play.google.com/store/apps/details?id=com.rohitsuratekar.NCBSinfo';
+                };
+            });
+
+</script>
 
 </body>
 </html>
