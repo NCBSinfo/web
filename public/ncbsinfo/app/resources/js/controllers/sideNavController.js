@@ -1,7 +1,7 @@
 /**
  * Created by Dexter on 17-09-16.
  */
-app.controller('sideNavController', function ($state, $scope, setupService, commonFunctions, $mdDialog, authService) {
+app.controller('sideNavController', function ($state, $scope, setupService, commonFunctions, $mdDialog, authService, $mdMedia) {
 
     $scope.title = setupService.getInfo().name;
     $scope.subtile = setupService.getInfo().email;
@@ -35,6 +35,10 @@ app.controller('sideNavController', function ($state, $scope, setupService, comm
 
         });
 
+    };
+
+    $scope.showEmail = function () {
+        return setupService.getMode() == "auth" && $mdMedia('sm');
     };
 
 
