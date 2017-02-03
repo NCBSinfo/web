@@ -41,8 +41,7 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
             localStorage.email = firebaseUser.email;
 
             var ref = firebase.database().ref();
-            var refEmail = firebaseUser.email.replace("@", "_").replace(".", "_");
-            var fireObject = $firebaseObject(ref.child('newUsers').child(refEmail));
+            var fireObject = $firebaseObject(ref.child('shiftedUsers').child('users').child(firebaseUser.uid));
             fireObject.$loaded().then(function () {
                 userData.name = fireObject.name;
                 userData.email = fireObject.email;
@@ -62,9 +61,9 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
                 localStorage.tableID = publicObject.tableID;
                 localStorage.publicAPI = publicObject.fusionAPI;
             });
-            ref.child('webSync').child(refEmail).update(
+            ref.child('shiftedUsers').child('users').child(firebaseUser.uid).update(
                 {
-                    webLogin: moment().format('hh:mm:ss A DD MMM YY')
+                    webLogin: moment().format('YYYY-MM-DD hh:mm:ss')
                 }
             );
 
@@ -89,37 +88,29 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
                 localStorage.email = firebaseUser.email;
                 commonFunctions.goTo('home')
             }).catch(function (error) {
-                dataSending.isIt = false;
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent(error.message)
-                        .position('right bottom')
-                        .hideDelay(3000)
-                );
-            });
+            dataSending.isIt = false;
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(error.message)
+                    .position('right bottom')
+                    .hideDelay(3000)
+            );
+        });
 
     };
 
     this.saveData = function (user) {
         dataSending.isIt = true;
         var ref = firebase.database().ref();
-        var refEmail = FireUser.email.replace("@", "_").replace(".", "_");
-
-        var notification = 0;
-        //  fireObject.webSync = moment().format('hh:mm:ss A DD MMM YY');
-        if (user.notifications == 'OFF') {
-            notification = 2;
-
-        }
-        else {
-            notification = 1;
-        }
+        var fav = getFavorite(user.defaultRoute);
 
 
-        ref.child('newUsers').child(refEmail).update({
-            defaultRoute: user.defaultRoute,
+        ref.child('shiftedUsers').child('users').child(FireUser.uid).update({
+            favoriteOrigin: fav[0],
+            favoriteDestination: fav[1],
+            favoriteType: fav[2],
             name: user.name,
-            notificationPreference: notification
+            notifications: user.notifications
         }).then(function (ref) {
             dataSending.isIt = false;
             $mdToast.show(
@@ -133,9 +124,9 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
             console.log("Error:", error);
         });
 
-        ref.child('webSync').child(refEmail).update(
+        ref.child('shiftedUsers').child('users').child(FireUser.uid).update(
             {
-                webDataSync: moment().format('hh:mm:ss A DD MMM YY')
+                webLogin: moment().format('YYYY-MM-DD hh:mm:ss')
             }
         );
 
@@ -183,15 +174,40 @@ app.service('authService', function ($firebaseAuth, setupService, $mdToast, comm
 
 
             }).catch(function (error) {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent(error.message)
-                        .position('right bottom')
-                        .hideDelay(3000)
-                );
-                console.error("Error: ", error);
-            });
-    }
-
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(error.message)
+                    .position('right bottom')
+                    .hideDelay(3000)
+            );
+            console.error("Error: ", error);
+        });
+    };
 
 });
+
+function getFavorite(i) {
+
+    switch (i) {
+        case 0:
+            return ['ncbs', 'iisc', 'shuttle'];
+        case 1:
+            return ['iisc', 'ncbs', 'shuttle'];
+        case 2:
+            return ['ncbs', 'mandara', 'shuttle'];
+        case 3:
+            return ['mandara', 'ncbs', 'shuttle'];
+        case 4:
+            return ['ncbs', 'mandara', 'buggy'];
+        case 5:
+            return ['mandara', 'ncbs', 'buggy'];
+        case 6:
+            return ['ncbs', 'icts', 'shuttle'];
+        case 7:
+            return ['icts', 'ncbs', 'shuttle'];
+        case 8 :
+            return ['ncbs', 'cbl', 'ttc'];
+        default:
+            return ['ncbs', 'iisc', 'shuttle'];
+    }
+}

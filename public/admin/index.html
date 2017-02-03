@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../ncbsinfo/app/resources/img/icon.png"/>
+    <link rel="stylesheet" type="text/css" href="materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="main.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <noscript>
+        <meta http-equiv="refresh" content="0;  URL=../nojava.html"/>
+    </noscript>
+
+    <title>Admin</title>
+</head>
+<body>
+
+<nav id="nav-web" class="teal darken-1" role="navigation"></nav>
+<ul id="nav-mobile" class="side-nav  left-align"></ul>
+<main class="valign-wrapper ">
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 l8 offset-m2 offset-l2 ">
+                <div class="card hoverable">
+
+                    <div class="card-content center">
+                        <span class="card-title ">Notification</span>
+
+                        <div class="row left-align">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="apiKey" type="text" class="validate">
+                                <label for="apiKey">API Key</label>
+                            </div>
+                        </div>
+
+                        <div class="row left-align">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="sendTo" type="text" class="validate">
+                                <label for="sendTo">User or Topic</label>
+                            </div>
+                        </div>
+
+                        <div class="row left-align">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="title" type="text" class="validate">
+                                <label for="title">Title</label>
+                            </div>
+                        </div>
+
+                        <div class="row left-align">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="message" type="text" class="validate">
+                                <label for="message">Message</label>
+                            </div>
+                        </div>
+
+                        <div class="row left-align">
+                            <div class="input-field col s12 m8 offset-m2">
+                                <input id="rcode" type="text" class="validate">
+                                <label for="rcode">RCODE (if any)</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="card-action center">
+                        <a id="send" href="#popup" class="popup_trigger waves-effect waves-light">Send</a>
+                        <a id="reset" class="waves-effect waves-light">Reset</a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup" class="modal">
+        <div class="modal-content">
+            <h5>Are you sure?</h5>
+            <p>You are about to send following information</p>
+            <p><span><b>Send To</b>: </span> <span id="pop_to">Public</span></p>
+            <p><span><b>Title</b> : </span> <span id="pop_title">Your Title</span></p>
+            <p><span><b>Message</b>: </span> <span id="pop_message">Your Message will come here ! </span></p>
+            <p><span><b><h6 id="code_title">RCODE</h6></b></span> <span style="color: red" id="pop_code">Null</span></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" id="sendBtn" class=" modal-action waves-effect waves-green btn-flat">Send</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Edit</a>
+        </div>
+    </div>
+
+
+</main>
+
+<footer id="site-footer"></footer>
+
+<!-- All Scripts -->
+<script type="text/javascript" src="../ncbsinfo/app/resources/js/lib/jQmin.js"></script>
+<script type="text/javascript" src="materialize.min.js"></script>
+<script type="text/javascript" src="setupeItems.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="admin.js"></script>
+
+</body>
+</html>

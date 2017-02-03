@@ -29,14 +29,6 @@ var sideNavList =
         onAuth: true,
         href: 'transport'
     },
-    events: {
-        name: 'Events',
-        icon: 'app/resources/img/icons/events.svg',
-        onOffline: false,
-        onHome: true,
-        onAuth: true,
-        href: 'events'
-    },
     contacts: {
         name: 'Contacts',
         icon: 'app/resources/img/icons/contact.svg',
