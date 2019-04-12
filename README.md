@@ -1,3 +1,5 @@
+``Note: This project has been halted for indefinite time.``
+
 # NCBSinfo web
 
      https://secretbiology.com/ncbsinfo/
